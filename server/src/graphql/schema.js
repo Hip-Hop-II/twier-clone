@@ -16,15 +16,29 @@ export default `
     createdAt: Date!
     updatedAt: Date!
   }
+  type Me {
+    _id: ID!
+    username: String!
+    email: String!
+    firstName: String
+    lastName: String
+    avatar: String
+    createdAt: Date!
+    updatedAt: Date!
+  }
   type Tweet {
     _id: ID!
     text: String!
+    user: User!
+    favoriteCount: Int!
     createdAt: Date!
     updatedAt: Date!
   }
   type Query {
     getTweet(_id: String!): Tweet
     getTweets: [Tweet]
+    getUserTweets: [Tweet],
+    me: Me
   }
   type Mutation {
     createTweet(text: String!): Tweet

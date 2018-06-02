@@ -25,12 +25,15 @@ UserSchema.pre('save', function (next) {
   return next()
 })
 UserSchema.methods = {
+  // 密码加密
   _hashPassword (password) {
     return hashSync(password)
   },
+  // 验证密码
   authenticateUser(password) {
     return compareSync(password, this.password)
   },
+  // 创建token
   createToken () {
     return jwt.sign({
       _id: this._id

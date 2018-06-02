@@ -1,4 +1,5 @@
 import User from '../../models/User'
+import {requireAuth} from '../../services/auth'
 
 export default {
   signup: async (_, {fullName, ...rest}) => {
@@ -17,6 +18,16 @@ export default {
     if (!user.authenticateUser(password)) {
       throw new Error('密码错误')
     }
-    return user
+    return {
+      token: user.createToken()
+    }
+  },
+  me: async (_, args, {user}) => {
+    try {
+      const me = await requireAuth(user)
+      return me
+    } catch (error) {
+      throw error
+    }
   }
 }
