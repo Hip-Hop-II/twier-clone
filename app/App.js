@@ -1,10 +1,12 @@
 import React from 'react'
-import { UIManager, View, Text } from 'react-native'
+import { UIManager } from 'react-native'
 import {ApolloProvider} from 'react-apollo'
 import {ThemeProvider} from 'styled-components'
 
 import {colors} from './src/utils/constants'
 import {client, store} from './src/store'
+
+import Home from './src/screens/HomeScreen'
 
 if (UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true)
@@ -15,20 +17,9 @@ export default class App extends React.Component {
     return (
       <ApolloProvider client={client} store={store}>
         <ThemeProvider theme={colors}>
-          <View>
-            <Text>hello world</Text>
-          </View>
+          <Home />
         </ThemeProvider>
       </ApolloProvider>
     )
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
