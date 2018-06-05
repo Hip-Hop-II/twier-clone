@@ -13,21 +13,23 @@ const AVATAR_RADIUS = AVATAR_SIZE / 2
 
 export default class FeedCardHeader extends Component {
   render () {
+    console.log('===============', this.props)
+    const {username, avatar, email} = this.props
     return (
       <View style={styles.wrapper}>
         <View style={styles.avatarContent}>
           <Image 
-            source={{uri: fakerAvatarImg}}
+            source={{uri: avatar}}
             style={styles.avatarImg}
           />
         </View>
         <View style={styles.metaContent}>
           <View style={styles.metaTopContent}>
             <Text style={styles.metaTopName}>
-              xcxerxes
+              {username}
             </Text>
             <Text style={styles.metaTopText}>
-              xcxerxes@gmail.com
+              {email}
             </Text>
           </View>
           <Text style={styles.metaBottomContent}>
@@ -42,6 +44,7 @@ export default class FeedCardHeader extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     height: 50,
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
   },

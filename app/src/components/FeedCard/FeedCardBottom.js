@@ -11,15 +11,31 @@ import CommentButton from '../Buttons/CommentButton'
 
 
 export default class FeedCardBottom extends Component {
-  buttonPressHandle = (type) => {
+  constructor (props) {
+    super(props)
+    this.state = {
+      favorite: false
+    }
+  }
+  commentPressHandle = (type) => {
 
   }
+  retweetPressHandle = () => {
+
+  }
+  heartPressHandle = () => {
+    this.setState({
+      favorite: !this.state.favorite
+    })
+  }
   render () {
+    const {favoriteCount} = this.props
+    const {favorite} = this.state
     return (
       <View style={styles.wrapper}>
         <View style={styles.container}>
           <CommentButton 
-            buttonPress={this.buttonPressHandle}
+            buttonPress={this.commentPressHandle}
             icons={
               <Icon 
               name="comment-o"
@@ -32,7 +48,7 @@ export default class FeedCardBottom extends Component {
         </View>
         <View style={styles.container}>
           <CommentButton 
-            buttonPress={this.buttonPressHandle}
+            buttonPress={this.retweetPressHandle}
             icons={
               <Icon 
               name="retweet"
@@ -45,16 +61,16 @@ export default class FeedCardBottom extends Component {
         </View>
         <View style={styles.container}>
           <CommentButton 
-            buttonPress={this.buttonPressHandle}
+            buttonPress={this.heartPressHandle}
             icons={
               <Icon 
-              name="heart-o"
+              name={favorite ? 'heart' : 'heart-o' }
               size={20}
               color={colors.LIGHT_GRAY}
               />
             }
           />
-          <Text>3</Text>
+          <Text>{favoriteCount}</Text>
         </View>
       </View>
     )

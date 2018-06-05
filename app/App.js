@@ -6,11 +6,12 @@ import {ThemeProvider} from 'styled-components'
 import {colors} from './src/utils/constants'
 import {client, store} from './src/store'
 
-import Home from './src/screens/HomeScreen'
+import Home from './src/navigators/AppNavigator'
 
 if (UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true)
 }
+console.ignoredYellowBox = ['Remote debugger']
 
 export default class App extends React.Component {
   render() {
