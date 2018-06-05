@@ -12,7 +12,7 @@ export default class ExploreContainer extends Component {
   static navigationOptions = () => ({
     tabBarIcon: ({tintColor}) => (
       <Icon
-        size={20}
+        size={24}
         name='search'
         color={tintColor}
       />

@@ -9,6 +9,7 @@ import HomeContainer from '../containers/HomeContainer'
 import ExploreContainer from '../containers/ExploreContainer'
 import NotificationContainer from '../containers/NotificationContainer'
 import UserContainer from '../containers/UserContainer'
+import AuthrizationScreen from '../screens/AuthrizationScreen'
 
 import {colors} from '../utils/constants'
 
@@ -54,8 +55,10 @@ export const AppNavigator = createStackNavigator({
         fontWeight: '700',
         color: colors.SECONDARY
       },
-      headerTitle: '首页'
     })
+  },
+  Auth: {
+    screen: AuthrizationScreen
   }
 }, {
   mode: 'modal'
@@ -72,13 +75,17 @@ class AppWithNavigationState extends Component {
   render () {
     const {dispatch, nav} = this.props
     const navigation = navigationPropConstructor(dispatch, nav)
+    if (!this.props.user.isAuthenticated) {
+      return <AuthrizationScreen />
+    }
     return (
       <AppNavigator navigation={navigation} />
     )
   }
 }
 const mapStateToProps = state => ({
-  nav: state.nav
+  nav: state.nav,
+  user: state.user
 })
 
 export default connect(mapStateToProps)(AppWithNavigationState)

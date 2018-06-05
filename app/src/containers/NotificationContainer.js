@@ -12,7 +12,7 @@ export default class NotificationContainer extends Component {
   static navigationOptions = () => ({
     tabBarIcon: ({tintColor}) => (
       <Icon
-        size={20}
+        size={24}
         name='bell'
         color={tintColor}
       />

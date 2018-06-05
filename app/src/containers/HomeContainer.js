@@ -16,10 +16,9 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 class HomeContainer extends Component {
   static navigationOptions = () => ({
-    headerTitle: '首页',
     tabBarIcon: ({tintColor}) => (
       <Icon
-        size={20}
+        size={24}
         name='home'
         color={tintColor}
       />
