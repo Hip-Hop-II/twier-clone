@@ -10,6 +10,7 @@ import ExploreContainer from '../containers/ExploreContainer'
 import NotificationContainer from '../containers/NotificationContainer'
 import UserContainer from '../containers/UserContainer'
 import AuthrizationScreen from '../screens/AuthrizationScreen'
+import SignupScreen from '../screens/SignupScreen'
 
 import {colors} from '../utils/constants'
 
@@ -57,10 +58,14 @@ export const AppNavigator = createStackNavigator({
       },
     })
   },
+  Signup: {
+    screen: SignupScreen
+  },
   Auth: {
     screen: AuthrizationScreen
   }
 }, {
+  initialRouteName: 'Auth',
   mode: 'modal'
 })
 
@@ -75,9 +80,9 @@ class AppWithNavigationState extends Component {
   render () {
     const {dispatch, nav} = this.props
     const navigation = navigationPropConstructor(dispatch, nav)
-    if (!this.props.user.isAuthenticated) {
-      return <AuthrizationScreen />
-    }
+    // if (!this.props.user.isAuthenticated) {
+    //   return <AuthrizationScreen navigation={navigation} />
+    // }
     return (
       <AppNavigator navigation={navigation} />
     )

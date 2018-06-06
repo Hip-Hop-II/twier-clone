@@ -6,22 +6,52 @@ import {
   TouchableOpacity,
   StyleSheet
 } from 'react-native'
+import SignupForm from '../components/Form/SignupForm'
+import Icon from 'react-native-vector-icons/FontAwesome'
 import {colors} from '../utils/constants'
 
+const initState = {
+  showLogin: false,
+  showSignup: false
+}
 class AuthrizationScreen extends Component {
+  static navigationOptions = () => ({
+    header: null
+  })
+  state = initState
   startPress = () => {
-
+    console.log(this.props.navigation.navigate)
+    this.props.navigation.navigate('Signup')
   }
   render () {
+    const {showSignup} = this.state
+    if (showSignup) {
+      return (
+        <View style={styles.wrapper}>
+          <SignupForm />
+        </View>
+      )
+    }
     return (
       <View style={styles.wrapper}>
-        <TouchableHighlight style={styles.buttonContent} onPress={this.startPress}>
-          <Text style={styles.buttonText}>Get Start</Text>
-        </TouchableHighlight>
+        <View style={styles.heading}>
+          <Icon name="twitter" 
+            size={26}
+            color={colors.PRIMARY}
+          />
+        </View>
+        <View style={styles.container}>
+          <Text style={styles.caption}>查看世界当前正在发生的事情。</Text>
+          <TouchableHighlight style={styles.buttonContent} onPress={this.startPress}>
+            <Text style={styles.buttonText}>现在开始</Text>
+          </TouchableHighlight>
+        </View>
         <View style={styles.bottomContainer}>
+          <Text style={styles.bottomContainerCaption}>已有账号？</Text>
           <TouchableOpacity>
-            <Text style={styles.bottomContainerText}>Already have an account?</Text>
+            <Text style={styles.bottomContainerText}>登录</Text>
           </TouchableOpacity>
+          
         </View>
       </View>
     )
@@ -30,20 +60,33 @@ class AuthrizationScreen extends Component {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: colors.SECONDARY,
+    backgroundColor: colors.WHITE,
     position: 'relative'
   },
+  heading: {
+    position: 'absolute',
+    top: '10%',
+    left: '10%'
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  caption: {
+    marginLeft: 40,
+    marginRight: 30,
+    fontSize: 24,
+    fontWeight: '500',
+    marginBottom: 10
+  },
   buttonContent: {
-    height: 60,
-    width: 150,
+    height: 40,
+    width: '80%',
     backgroundColor: colors.PRIMARY,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute',
-    top: '30%',
-    right: 0,
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
+    borderRadius: 20,
     shadowOpacity: 0.4,
     shadowRadius: 5,
     shadowOffset: {
@@ -53,22 +96,28 @@ const styles = StyleSheet.create({
     shadowColor: '#000'
   },
   buttonText: {
-    fontSize: 20,
-    fontWeight: '700',
+    fontSize: 18,
+    fontWeight: '600',
     color: colors.WHITE
   },
   bottomContainer: {
     position: 'absolute',
     bottom: 0,
-    left: 0,
+    left: '10%',
     right: 0,
     height: 200,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row'
+  },
+  bottomContainerCaption: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: colors.LIGHT_GRAY
   },
   bottomContainerText: {
-    color: colors.WHITE,
-    fontSize: 16,
+    color: colors.PRIMARY,
+    fontSize: 14,
     fontWeight: '400'
   }
 })

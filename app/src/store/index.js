@@ -8,7 +8,7 @@ import {createNavigationPropConstructor, createReactNavigationReduxMiddleware} f
 import reducers from '../reducers'
 
 const networkInterface = createNetworkInterface({
-  uri: 'http://192.168.1.5:3000/graphql'
+  uri: 'http://172.16.12.105:3000/graphql'
 })
 
 export const navigationMiddleware = createReactNavigationReduxMiddleware(
