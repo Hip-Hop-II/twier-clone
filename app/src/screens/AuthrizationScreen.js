@@ -36,7 +36,7 @@ class AuthrizationScreen extends Component {
       <View style={styles.wrapper}>
         <View style={styles.heading}>
           <Icon name="twitter" 
-            size={26}
+            size={30}
             color={colors.PRIMARY}
           />
         </View>
@@ -74,11 +74,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   caption: {
-    marginLeft: 40,
-    marginRight: 30,
-    fontSize: 24,
-    fontWeight: '500',
-    marginBottom: 10
+    width: '80%',
+    fontSize: 26,
+    fontWeight: '600',
+    color: '#000',
+    marginBottom: 20
   },
   buttonContent: {
     height: 40,
@@ -88,10 +88,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 20,
     shadowOpacity: 0.4,
-    shadowRadius: 5,
+    shadowRadius: 3,
     shadowOffset: {
       width: 0,
-      height: 4
+      height: 2
     },
     shadowColor: '#000'
   },
