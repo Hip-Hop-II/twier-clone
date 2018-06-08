@@ -11,7 +11,6 @@ import FeedCardBottom from './FeedCardBottom'
 export default class FeedCard extends Component {
   render () {
     const {text, favoriteCount, ...args} = this.props
-    console.log("============", args)
     return (
       <View style={styles.wrapper}>
         <FeedCardHeader {...args.user} />

@@ -27,7 +27,6 @@ class HomeContainer extends Component {
   _renderItem = ({item}) => <FeedCard {...item} />
   render () {
     const { data } = this.props
-    console.log(this.props)
     if (data.loading) {
       return (
         <View style={styles.homeWrapper}>

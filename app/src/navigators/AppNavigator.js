@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {AsyncStorage} from 'react-native'
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation'
 import {initializeListeners} from 'react-navigation-redux-helpers'
 
@@ -44,8 +45,10 @@ const Tabs = createBottomTabNavigator ({
     }
   }
 })
-
 export const AppNavigator = createStackNavigator({
+  Auth: {
+    screen: AuthrizationScreen
+  },
   Home: {
     screen: Tabs,
     navigationOptions: () => ({
@@ -60,12 +63,8 @@ export const AppNavigator = createStackNavigator({
   },
   Signup: {
     screen: SignupScreen
-  },
-  Auth: {
-    screen: AuthrizationScreen
   }
 }, {
-  initialRouteName: 'Auth',
   mode: 'modal'
 })
 
@@ -74,15 +73,30 @@ class AppWithNavigationState extends Component {
     dispatch: PropTypes.func.isRequired,
     nav: PropTypes.object.isRequired
   }
+  _checkIfToken = async () => {
+    try {
+      const {dispatch, nav} = this.props
+      const navigation = navigationPropConstructor(dispatch, nav)
+      const token = await AsyncStorage.getItem('@twitteryoutubeclone')
+      console.log('auth ===============', token)
+      if (token != null) {
+        navigation.navigate('Home')
+      } else {
+        navigation.navigate('Auth')
+      }
+    } catch (error) {
+      throw error
+    }
+  }
+  componentWillMount () {
+    this._checkIfToken()
+  }
   componentDidMount () {
     initializeListeners('root', this.props.nav)
   }
   render () {
     const {dispatch, nav} = this.props
     const navigation = navigationPropConstructor(dispatch, nav)
-    // if (!this.props.user.isAuthenticated) {
-    //   return <AuthrizationScreen navigation={navigation} />
-    // }
     return (
       <AppNavigator navigation={navigation} />
     )

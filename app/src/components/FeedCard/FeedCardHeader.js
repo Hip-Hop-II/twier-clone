@@ -13,7 +13,6 @@ const AVATAR_RADIUS = AVATAR_SIZE / 2
 
 export default class FeedCardHeader extends Component {
   render () {
-    console.log('===============', this.props)
     const {username, avatar, email} = this.props
     return (
       <View style={styles.wrapper}>

@@ -21,7 +21,7 @@ export const navigationPropConstructor = createNavigationPropConstructor('root')
 export const client = new ApolloClient({
   networkInterface
 })
-console.log(client)
+const logger = process.env.NODE_ENV === 'development' ? createLogger() : null
 const middlewares = [client.middleware(), thunk]
 
 export const store = createStore(
