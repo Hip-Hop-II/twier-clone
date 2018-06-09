@@ -8,7 +8,7 @@ import {createNavigationPropConstructor, createReactNavigationReduxMiddleware} f
 import reducers from '../reducers'
 
 const networkInterface = createNetworkInterface({
-  uri: 'http://172.16.12.105:3000/graphql'
+  uri: 'http://192.168.1.5:3000/graphql'
 })
 
 export const navigationMiddleware = createReactNavigationReduxMiddleware(
@@ -22,10 +22,10 @@ export const client = new ApolloClient({
   networkInterface
 })
 const logger = process.env.NODE_ENV === 'development' ? createLogger() : null
-const middlewares = [client.middleware(), thunk]
+const middlewares = [client.middleware(), thunk, logger]
 
 export const store = createStore(
   reducers(client),
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+  undefined,
   composeWithDevTools(applyMiddleware(...middlewares)),
 )

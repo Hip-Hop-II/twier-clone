@@ -10,6 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 export default class ExploreContainer extends Component {
   static navigationOptions = () => ({
+    headerTitle: 'ccccccc',
     tabBarIcon: ({tintColor}) => (
       <Icon
         size={24}

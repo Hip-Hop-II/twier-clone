@@ -1,5 +1,5 @@
 import React, { Component  } from "react"
-import AppNavigator from  '../navigators/AppNavigator'
+import {AppNavigator} from  '../navigators/AppNavigator'
 
 export default class HomeScreen extends Component {
   render () {

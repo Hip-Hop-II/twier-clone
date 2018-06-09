@@ -16,8 +16,11 @@ import SignupScreen from '../screens/SignupScreen'
 import {colors} from '../utils/constants'
 
 const Tabs = createBottomTabNavigator ({
-  Home: {
-    screen: HomeContainer
+  HomeContainer: {
+    screen: HomeContainer,
+    navigationOptions: () => ({
+      headerTitle: 'asdsd'
+    })
   },
   Explore: {
     screen: ExploreContainer
@@ -31,7 +34,7 @@ const Tabs = createBottomTabNavigator ({
 },
 {
   mode: 'modal',
-  initialRouteName: 'Home',
+  initialRouteName: 'HomeContainer',
   swipeEnabled: true,
   animationEnabled: true,
   tabBarOptions: {
@@ -73,23 +76,8 @@ class AppWithNavigationState extends Component {
     dispatch: PropTypes.func.isRequired,
     nav: PropTypes.object.isRequired
   }
-  _checkIfToken = async () => {
-    try {
-      const {dispatch, nav} = this.props
-      const navigation = navigationPropConstructor(dispatch, nav)
-      const token = await AsyncStorage.getItem('@twitteryoutubeclone')
-      console.log('auth ===============', token)
-      if (token != null) {
-        navigation.navigate('Home')
-      } else {
-        navigation.navigate('Auth')
-      }
-    } catch (error) {
-      throw error
-    }
-  }
   componentWillMount () {
-    this._checkIfToken()
+    // this._checkIfToken()
   }
   componentDidMount () {
     initializeListeners('root', this.props.nav)

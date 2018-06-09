@@ -1,11 +1,12 @@
 import React from 'react'
-import { UIManager } from 'react-native'
+import { UIManager, AsyncStorage } from 'react-native'
 import {ApolloProvider} from 'react-apollo'
 import {ThemeProvider} from 'styled-components'
 import {AppLoading} from 'expo'
 
 import {colors} from './src/utils/constants'
 import {client, store} from './src/store'
+import {login} from './src/actions/user'
 
 import AppNavigator from './src/navigators/AppNavigator'
 
@@ -18,8 +19,20 @@ export default class App extends React.Component {
   state = {
     appIsReady: false
   }
+  _checkIfToken = async () => {
+    try {
+      const _store = store
+      const token = await AsyncStorage.getItem('@twitteryoutubeclone')
+      if (token != null) {
+        store.dispatch(login())
+      }
+    } catch (error) {
+      throw error
+    }
+  }
   componentWillMount () {
     this.setState({appIsReady: true})
+    this._checkIfToken()
   }
   render() {
     if (!this.state.appIsReady) {
