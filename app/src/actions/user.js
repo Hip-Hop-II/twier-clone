@@ -9,3 +9,10 @@ export function logout () {
     type: 'LOGOUT'
   }
 }
+
+export function getUserInfo(info) {
+  return {
+    type: 'GET_USER_INFO',
+    info
+  }
+}

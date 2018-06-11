@@ -3,6 +3,9 @@ import { UIManager, AsyncStorage } from 'react-native'
 import {ApolloProvider} from 'react-apollo'
 import {ThemeProvider} from 'styled-components'
 import {AppLoading} from 'expo'
+import {
+  ActionSheetProvider
+} from '@expo/react-native-action-sheet'
 
 import {colors} from './src/utils/constants'
 import {client, store} from './src/store'
@@ -40,9 +43,11 @@ export default class App extends React.Component {
     }
     return (
       <ApolloProvider client={client} store={store}>
-        <ThemeProvider theme={colors}>
-          <AppNavigator />
-        </ThemeProvider>
+        <ActionSheetProvider>
+          <ThemeProvider theme={colors}>
+            <AppNavigator />
+          </ThemeProvider>
+        </ActionSheetProvider>
       </ApolloProvider>
     )
   }

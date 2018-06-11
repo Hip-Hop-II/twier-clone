@@ -55,13 +55,14 @@ export const AppNavigator = createStackNavigator({
   Home: {
     screen: Tabs,
     navigationOptions: () => ({
-      headerStyle: {
+      /* headerStyle: {
         backgroundColor: colors.WHITE
       },
       headerTitleStyle: {
         fontWeight: '700',
         color: colors.SECONDARY
-      },
+      }, */
+      header: null
     })
   },
   Signup: {
