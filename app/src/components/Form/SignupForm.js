@@ -5,14 +5,14 @@ import {
   StyleSheet
 } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
-import BackButton from '../Buttons/BackButton'
+import ButtonHeader from '../Buttons/ButtonHeader'
 import {colors} from '../../utils/constants'
 
 class SignupForm extends Component {
   render () {
     return (
       <View style={styles.wrapper}>
-        <BackButton
+        <ButtonHeader
         buttonPress={() => this.props.onBackPress()} 
           icons={
             <Icon 
@@ -21,6 +21,7 @@ class SignupForm extends Component {
             color={colors.PRIMARY}
             />
           }
+          buttonStyle={{paddingLeft: 10}}
         />
       </View>
     )

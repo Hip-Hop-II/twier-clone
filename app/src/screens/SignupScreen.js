@@ -11,7 +11,7 @@ import {
 } from 'react-native'
 import MaterIcon from 'react-native-vector-icons/MaterialIcons'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
-import BackButton from '../components/Buttons/BackButton'
+import ButtonHeader from '../components/Buttons/ButtonHeader'
 import InputField from '../components/Form/InputField'
 import Loading from '../components/Loading'
 import {colors, fakerAvatarImg} from '../utils/constants'
@@ -74,7 +74,7 @@ class SignupScreen extends Component {
     return (
       <KeyboardAvoidingView style={styles.wrapper} behavior="padding">
         <View style={styles.heading}>
-          <BackButton
+          <ButtonHeader
           buttonPress={() => this.props.navigation.goBack()} 
             icons={
               <MaterIcon 
@@ -83,6 +83,7 @@ class SignupScreen extends Component {
               color={colors.PRIMARY}
               />
             }
+            buttonStyle={{paddingLeft: 10}}
           />
           <View style={styles.headerTitle}>
             <FontAwesomeIcon

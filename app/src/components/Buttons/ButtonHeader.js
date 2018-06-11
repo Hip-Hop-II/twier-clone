@@ -6,23 +6,22 @@ import {
   StyleSheet
 } from 'react-native'
 
-export default class CommentButton extends Component {
+export default class ButtonHeader extends Component {
   render () {
-    const {buttonPress, icons} = this.props
+    const {buttonPress, icons, buttonStyle} = this.props
     return (
-      <TouchableOpacity onPress={buttonPress} style={styles.buttonWrapper}>
+      <TouchableOpacity onPress={buttonPress} style={[styles.buttonWrapper, buttonStyle]}>
         {icons}
       </TouchableOpacity>
     )
   }
 }
 
-CommentButton.propTypes = {
+ButtonHeader.propTypes = {
   buttonPress: PropTypes.func.isRequired,
   icons: PropTypes.element
 }
 const styles = StyleSheet.create({
   buttonWrapper: {
-    paddingLeft: 10
   }
 })

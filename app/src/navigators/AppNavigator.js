@@ -6,54 +6,21 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 import {initializeListeners} from 'react-navigation-redux-helpers'
 
 import {navigationPropConstructor} from '../store'
-import HomeContainer from '../containers/HomeContainer'
-import ExploreContainer from '../containers/ExploreContainer'
-import NotificationContainer from '../containers/NotificationContainer'
-import UserContainer from '../containers/UserContainer'
+
 import AuthrizationScreen from '../screens/AuthrizationScreen'
 import SignupScreen from '../screens/SignupScreen'
+import NewTweetScreen from '../screens/NewTweetScreen'
+import LoggedTabNavigator from './LoggedTabNavigator'
 
-import {colors} from '../utils/constants'
-
-const Tabs = createBottomTabNavigator ({
-  HomeContainer: {
-    screen: HomeContainer,
-    navigationOptions: () => ({
-      headerTitle: 'asdsd'
-    })
-  },
-  Explore: {
-    screen: ExploreContainer
-  },
-  Notice: {
-    screen: NotificationContainer
-  },
-  User: {
-    screen: UserContainer
-  }
-},
-{
-  mode: 'modal',
-  initialRouteName: 'HomeContainer',
-  swipeEnabled: true,
-  animationEnabled: true,
-  tabBarOptions: {
-    showLabel: false,
-    activeTintColor: colors.PRIMARY,
-    inactiveTintColor: colors.LIGHT_GRAY,
-    style: {
-      backgroundColor: colors.WHITE,
-      height: 50,
-      paddingVertical: 5
-    }
-  }
-})
 export const AppNavigator = createStackNavigator({
   Auth: {
     screen: AuthrizationScreen
   },
+  Signup: {
+    screen: SignupScreen
+  },
   Home: {
-    screen: Tabs,
+    screen: LoggedTabNavigator,
     navigationOptions: () => ({
       /* headerStyle: {
         backgroundColor: colors.WHITE
@@ -65,11 +32,12 @@ export const AppNavigator = createStackNavigator({
       header: null
     })
   },
-  Signup: {
-    screen: SignupScreen
+  NewTweet: {
+    screen: NewTweetScreen
   }
 }, {
-  mode: 'modal'
+  mode: 'modal',
+  initialRouteName: 'Home',
 })
 
 class AppWithNavigationState extends Component {
@@ -77,14 +45,12 @@ class AppWithNavigationState extends Component {
     dispatch: PropTypes.func.isRequired,
     nav: PropTypes.object.isRequired
   }
-  componentWillMount () {
-    // this._checkIfToken()
-  }
   componentDidMount () {
     initializeListeners('root', this.props.nav)
   }
   render () {
     const {dispatch, nav} = this.props
+    console.log(this.props)
     const navigation = navigationPropConstructor(dispatch, nav)
     return (
       <AppNavigator navigation={navigation} />

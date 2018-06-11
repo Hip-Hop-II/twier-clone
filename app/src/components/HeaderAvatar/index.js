@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import {
-  View,
-  Text,
   Image,
   TouchableOpacity,
   StyleSheet
 } from 'react-native'
 import {connect} from 'react-redux'
+import {withApollo} from 'react-apollo'
 import {connectActionSheet} from '@expo/react-native-action-sheet'
 import {colors, fakerAvatarImg} from '../../utils/constants'
 import Loading from '../Loading'
@@ -23,59 +22,41 @@ class HeaderAvatar extends Component {
       cancelButtonIndex: 1
     },
       buttonIndex => {
-
+        this.props.client.resetStore()
+        return this.props.logout()
       })
   }
   render() {
-    const {headerLeft, title, userInfo, avatarOnPress} = this.props
+    const {headerLeft, info, avatarOnPress} = this.props
+    if (info.avatar) {
+      return (
+        <TouchableOpacity style={styles.imageWrapper} disabled={info.avatar} onPress={this._avatarOnpress}>
+          <Loading size="small" />
+        </TouchableOpacity>
+      )
+    }
     return (
-      <View style={styles.wrapper}>
-        {headerLeft ? 
-        <TouchableOpacity style={styles.imageWrapper} disabled={!userInfo.avatar} onPress={this._avatarOnpress}>
-          {userInfo.avatar ? <Image style={styles.image}source={{uri: userInfo.avatar}} /> : <Loading size="small" /> }
-        </TouchableOpacity> : null}
-        <Text style={styles.titleText}>{title}</Text>
-      </View>
+        <TouchableOpacity style={styles.imageWrapper} disabled={info.avatar} onPress={this._avatarOnpress}>
+          <Image style={styles.image}source={{uri: fakerAvatarImg}} />
+        </TouchableOpacity>
     )
   }
 }
 
 HeaderAvatar.propTypes = {
-  headerLeft: PropTypes.bool,
-  title: PropTypes.string,
   userInfo: PropTypes.object
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    backgroundColor: '#fff',
-    height: 80,
-    borderBottomWidth: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    paddingBottom: 10,
-    borderBottomColor: colors.LIGHT_GRAY
-  },
   imageWrapper: {
-    marginLeft: 15,
-    height: avatar_size,
-    width: avatar_size,
+    marginLeft: 15
   },
   image: {
     height: avatar_size,
     width: avatar_size,
-    borderRadius: avatar_radius
-  },
-  titleText: {
-    flex: 1,
-    textAlign: 'center',
-    fontSize: 16,
-    fontWeight: '600'
+    borderRadius: avatar_radius,
+    alignContent: 'flex-end'
   }
 })
 
-export default connect(undefined, {logout})(connectActionSheet(HeaderAvatar))
+export default withApollo(connect((state) => ({info: state.user.info}), {logout})(connectActionSheet(HeaderAvatar)))

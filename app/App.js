@@ -16,7 +16,6 @@ import AppNavigator from './src/navigators/AppNavigator'
 if (UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true)
 }
-console.ignoredYellowBox = ['Remote debugger']
 
 export default class App extends React.Component {
   state = {

@@ -23,7 +23,11 @@ export default class InputField extends Component {
       inputColor,
       borderBottomColor,
       type,
-      value
+      multiline,
+      maxLength,
+      autoFocus,
+      value,
+      inputStyle
     } = this.props
     const color = inputColor || colors.SECONDARY
     const secureTextEntry = type === 'password'
@@ -31,13 +35,17 @@ export default class InputField extends Component {
     return (
       <TextInput
       value={value}
+      multiline={multiline}
+      maxLength={maxLength}
       placeholder={placeholder}
       autoCorrect={false}
+      autoFocus={autoFocus}
       keyboardType={keyboardType || 'default'}
       underlineColorAndroid="transparent"
       onChangeText={onChangeText}
       secureTextEntry={secureTextEntry}
-      style={[styles.inputField, {color, borderBottomColor: borderColor}]}
+      underlineColorAndroid="transparent"
+      style={[styles.inputField, {color, borderBottomColor: borderColor}, inputStyle]}
       />
     )
   }

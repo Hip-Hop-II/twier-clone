@@ -10,7 +10,7 @@ import reducers from '../reducers'
 import { onErrorResumeNext } from 'rxjs/operator/onErrorResumeNext';
 
 const networkInterface = createNetworkInterface({
-  uri: 'http://192.168.1.5:3000/graphql'
+  uri: 'http://172.16.12.105:3000/graphql'
 })
 
 networkInterface.use([{
@@ -18,16 +18,16 @@ networkInterface.use([{
     if (!req.options.headers) {
       req.options.headers = {}
     }
-    try {
-      const token = await AsyncStorage.getItem('@twitteryoutubeclone')
-      if (token != null) {
-        req.options.headers.authorization = `Bearer ${token}`
-      } else {
-        req.options.headers.authorization = null
-      }
-    } catch (error) {
-      throw error
-    }
+    // try {
+    //   const token = await AsyncStorage.getItem('@twitteryoutubeclone')
+    //   if (token != null) {
+    //     req.options.headers.authorization = `Bearer ${token}`
+    //   } else {
+    //     req.options.headers.authorization = null
+    //   }
+    // } catch (error) {
+    //   throw error
+    // }
     return next()
   }
 }])
