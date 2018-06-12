@@ -11,7 +11,7 @@ export default {
   },
   getTweet: async (_, {_id}, {user}) => {
     try {
-      await requireAuth(user)
+      // await requireAuth(user)
       return Tweet.findById(_id)
     } catch (error) {
       throw error
@@ -28,8 +28,8 @@ export default {
   },
   createTweet: async (_, args, {user}) => {
     try {
-      await requireAuth(user)
-      return Tweet.create({...args, user: user._id})
+      // await requireAuth(user)
+      return Tweet.create({...args, user: '5b18fb63a819e84f48c9e871'})
     } catch (error) {
       throw error
     }

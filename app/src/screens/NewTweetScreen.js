@@ -6,14 +6,20 @@ import {
   TouchableHighlight,
   KeyboardAvoidingView,
   ScrollView,
+  Keyboard,
   StyleSheet
 } from 'react-native'
+
+import {connect} from 'react-redux'
+import {graphql, compose} from 'react-apollo'
+import MUTATION_CREATETWEET from '../graphql/mutations/createTweet'
+import QUERY_GETTWEETS from '../graphql/queries/getTweets'
 
 import HeaderAvatar from '../components/HeaderAvatar'
 import ButtonHeader from '../components/Buttons/ButtonHeader'
 import InputField from '../components/Form/InputField'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import {colors} from '../utils/constants'
+import {colors, fakerAvatarImg} from '../utils/constants'
 
 class NewTweetScreen extends Component {
   static navigationOptions = ({navigation}) => ({
@@ -41,8 +47,45 @@ class NewTweetScreen extends Component {
   _onChangeText = (text) => {
     this.setState({text})
   }
-  _send = () => {
-
+  _send = async () => {
+    try {
+      const {user = {}} = this.props
+      await this.props.mutate({
+        variables: {
+          text: this.state.text
+        },
+        optimisticResponse: {
+          __typename: 'Mutation',
+          createTweet: {
+            __typename: 'Tweet',
+            text: this.state.text,
+            favoriteCount: 0,
+            _id: Math.round(Math.random() * -1000000),
+            createdAt: new Date(),
+            user: {
+              __typename: 'User',
+              username: 'xcxerxes',
+              firstName: 'Antony',
+              lastName: 'xia',
+              avatar: fakerAvatarImg
+            }
+          }
+        },
+        update: (store, {data: {createTweet}}) => {
+          const data = store.readQuery({query: QUERY_GETTWEETS})
+          if (!data.getTweets.find(t => t._id === createTweet._id)) {
+            store.writeQuery({query: QUERY_GETTWEETS, data: {getTweets: [{...createTweet}, ...data.getTweets]}})
+          }
+        }
+      })
+      Keyboard.dismiss()
+      this.props.navigation.goBack()
+    } catch (error) {
+      throw error
+    }
+  }
+  get _buttonDisabled () {
+    return this.state.text.length < 5
   }
   render() {
     return (
@@ -62,7 +105,8 @@ class NewTweetScreen extends Component {
           {this._textLength}
         </Text>
         <View style={styles.tweetButtonWrapper}>
-          <TouchableHighlight style={styles.tweetButton} onPress={this._send} 
+          <TouchableHighlight style={styles.tweetButton} onPress={this._send}
+            disabled={this._buttonDisabled}
             underlayColor={colors.LIGHT_PRIMARY}  
             activeOpacity={.8}
           >
@@ -117,4 +161,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   }
 })
-export default NewTweetScreen
+export default compose(
+  graphql(MUTATION_CREATETWEET),
+  connect(state => ({user: state.user.info}))
+)(NewTweetScreen)
