@@ -52,12 +52,12 @@ class SignupScreen extends Component {
           email,
           password,
           username,
-          avatar
+          avatar: fakerAvatarImg
         }
       })
       await AsyncStorage.setItem('@twitteryoutubeclone', data.signup.token)
       this.setState({loading: false})
-      this.props.navigation.navigate('Home')
+      return this.props.navigation.replace('Home')
     } catch (error) {
       this.setState({loading: false})
       throw error

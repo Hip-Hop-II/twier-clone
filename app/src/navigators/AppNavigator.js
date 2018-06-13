@@ -37,7 +37,7 @@ export const AppNavigator = createStackNavigator({
   }
 }, {
   mode: 'modal',
-  initialRouteName: 'Home',
+  initialRouteName: 'Auth',
 })
 
 class AppWithNavigationState extends Component {

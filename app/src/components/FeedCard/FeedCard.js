@@ -8,9 +8,12 @@ import {colors} from '../../utils/constants'
 import FeedCardHeader from './FeedCardHeader'
 import FeedCardBottom from './FeedCardBottom'
 
-export default class FeedCard extends Component {
+import {graphql} from 'react-apollo'
+import FAVORITE_TWEET_MUTATION from '../../graphql/mutations/favoriteTweet'
+
+class FeedCard extends Component {
   render () {
-    const {text, favoriteCount, ...args} = this.props
+    const {text, favoriteCount, favorite, isFavorited, ...args} = this.props
     return (
       <View style={styles.wrapper}>
         <FeedCardHeader {...args.user} />
@@ -19,7 +22,10 @@ export default class FeedCard extends Component {
           {text}
           </Text>
         </View>
-        <FeedCardBottom favoriteCount={favoriteCount}/>
+        <FeedCardBottom favoriteCount={favoriteCount} 
+          onFavoritePress={favorite}
+          isFavorited={isFavorited}
+        />
       </View>
     )
   }
@@ -55,3 +61,22 @@ const styles = StyleSheet.create({
     color: colors.SECONDARY
   }
 })
+
+export default graphql(FAVORITE_TWEET_MUTATION, {
+  props: ({ownProps, mutate}) => ({
+    favorite: () => mutate({
+      variables: {
+        _id: ownProps._id
+      },
+      optimisticResponse: {
+        __typename: 'Mutation',
+        favoriteTweet: {
+          __typename: 'Tweet',
+          _id: ownProps._id,
+          favoriteCount: ownProps.isFavorited ? ownProps.favoriteCount - 1 : ownProps.favoriteCount + 1,
+          isFavorited: !ownProps.isFavorited
+        }
+      }
+    })
+  })
+})(FeedCard)

@@ -5,6 +5,7 @@ export default gql`
     getTweets {
       _id
       text
+      isFavorited
       createdAt
       favoriteCount
       user {

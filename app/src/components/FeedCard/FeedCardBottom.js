@@ -29,8 +29,7 @@ export default class FeedCardBottom extends Component {
     })
   }
   render () {
-    const {favoriteCount} = this.props
-    const {favorite} = this.state
+    const {favoriteCount, onFavoritePress, isFavorited} = this.props
     return (
       <View style={styles.wrapper}>
         <View style={styles.container}>
@@ -44,7 +43,7 @@ export default class FeedCardBottom extends Component {
               />
             }
           />
-          <Text>3</Text>
+          <Text>0</Text>
         </View>
         <View style={styles.container}>
           <CommentButton 
@@ -57,16 +56,16 @@ export default class FeedCardBottom extends Component {
               />
             }
           />
-          <Text>3</Text>
+          <Text>0</Text>
         </View>
         <View style={styles.container}>
-          <CommentButton 
-            buttonPress={this.heartPressHandle}
+          <CommentButton
+            buttonPress={() => onFavoritePress()}
             icons={
               <Icon 
-              name={favorite ? 'heart' : 'heart-o' }
+              name={isFavorited ? 'heart' : 'heart-o' }
               size={20}
-              color={colors.LIGHT_GRAY}
+              color={isFavorited ? colors.DANGER : colors.LIGHT_GRAY}
               />
             }
           />

@@ -64,10 +64,11 @@ class NewTweetScreen extends Component {
             createdAt: new Date(),
             user: {
               __typename: 'User',
-              username: 'xcxerxes',
-              firstName: 'Antony',
-              lastName: 'xia',
-              avatar: fakerAvatarImg
+              username: user.username,
+              firstName: user.firstName,
+              lastName: user.lastName,
+              email: user.email,
+              avatar: user.avatar
             }
           }
         },

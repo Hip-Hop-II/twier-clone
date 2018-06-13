@@ -28,15 +28,15 @@ class HeaderAvatar extends Component {
   }
   render() {
     const {headerLeft, info, avatarOnPress} = this.props
-    if (info.avatar) {
+    if (!info.avatar) {
       return (
-        <TouchableOpacity style={styles.imageWrapper} disabled={info.avatar} onPress={this._avatarOnpress}>
+        <TouchableOpacity style={styles.imageWrapper} disabled={!info.avatar} onPress={this._avatarOnpress}>
           <Loading size="small" />
         </TouchableOpacity>
       )
     }
     return (
-        <TouchableOpacity style={styles.imageWrapper} disabled={info.avatar} onPress={this._avatarOnpress}>
+        <TouchableOpacity style={styles.imageWrapper} disabled={!info.avatar} onPress={this._avatarOnpress}>
           <Image style={styles.image}source={{uri: fakerAvatarImg}} />
         </TouchableOpacity>
     )
